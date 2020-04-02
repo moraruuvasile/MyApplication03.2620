@@ -1,4 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <item
+        android:id="@+id/menuFreeApps"
+        android:title="FreeApps" />
+    <item
+        android:id="@+id/menuPayedApps"
+        android:title="Payed Apps" />
+    <item
+        android:id="@+id/menuSongs"
+        android:icon="@android:drawable/btn_star_big_on"
+        android:title="Songs"
+        app:showAsAction="ifRoom|withText" />
+
+    <group
+        android:id="@+id/vasea"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/menuGrup10"
+            android:checked="true"
+            android:title="Top 10" />
+        <item
+            android:id="@+id/menuGrup25"
+            android:title="Top 25" />
+    </group>
 </menu>
