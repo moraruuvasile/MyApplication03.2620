@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,15 +18,20 @@ import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 	private static final String TAG = "MainActivity";
+	ListView listView;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		Log.d(TAG, "onCreate: " + "Start ");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+		listView = findViewById(R.id.view_of_listview);
+
 		DownloadData downloadData = new DownloadData();
-		downloadData.execute("http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/topsongs/limit=10/xml");
+		downloadData.execute("http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/toppaidapplications/limit=25/xml");
 		Log.d(TAG, "onCreate: " + "Finish");
+
 	}
 	
 	
@@ -36,6 +44,16 @@ public class MainActivity extends AppCompatActivity {
 			Log.d(TAG, "onPostExecute: " + s);
 			ParseXMLApp parseXMLApp = new ParseXMLApp();
 			parseXMLApp.parse(s);
+
+//			ArrayAdapter<FeedEntry> arrayAdapter= new ArrayAdapter<FeedEntry>(
+//					MainActivity.this, R.layout.list_item, parseXMLApp.getApplications()
+//			);
+//			listView.setAdapter(arrayAdapter);
+
+			FeedAdapter feedAdapter = new FeedAdapter(
+					MainActivity.this, R.layout.list_adapter_xml, parseXMLApp.getApplications()
+			);
+			listView.setAdapter(feedAdapter);
 		}
 
 		@Override
